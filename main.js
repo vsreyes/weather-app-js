@@ -11,3 +11,25 @@ function setQuery(evt) {
     getResults(searchbox.value);
   }
 }
+
+function getResults(query) {
+  fetch(`${api.base}weather?q=$(query)&units=metric&APPID=${api.key}`)
+    .then(weather => {
+      return weather.json;
+    })
+    .then(displayResults);
+}
+
+function displayResults(weather) {
+  let city = document.querySelector('.location .city');
+  city.innerText = `$(weather.name), ${weather.sys.country}`;
+
+  let now = new Date();
+  let date = document.querySelector('.location .city');
+  date.innerText = dateBuilder(now);
+
+  let temp = document.querySelector('.current .temp');
+  temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
+
+  let weather_el = document.querySelector('.current .weather');
+}
