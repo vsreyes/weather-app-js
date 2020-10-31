@@ -13,19 +13,19 @@ function setQuery(evt) {
 }
 
 function getResults(query) {
-  fetch(`${api.base}weather?q=$(query)&units=metric&APPID=${api.key}`)
+  fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
     .then(weather => {
-      return weather.json;
+      return weather.json();
     })
     .then(displayResults);
 }
 
 function displayResults(weather) {
   let city = document.querySelector('.location .city');
-  city.innerText = `$(weather.name), ${weather.sys.country}`;
+  city.innerText = `${weather.name}, ${weather.sys.country}`;
 
   let now = new Date();
-  let date = document.querySelector('.location .city');
+  let date = document.querySelector('.location .date');
   date.innerText = dateBuilder(now);
 
   let temp = document.querySelector('.current .temp');
